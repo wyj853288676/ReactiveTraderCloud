@@ -1,5 +1,4 @@
 import { whenRpc, getRemoteProcedureCall$, reset } from "utils/mockClient"
-
 import {
   ExecutionTrade,
   ExecutionPayload,
@@ -65,6 +64,7 @@ describe("services/executions", () => {
 
       reset()
       whenRpc("execution", "executeTrade", rawRequest, input)
+
       expectObservable(executeStream$).toBe(expectedOutput, {
         r: expectedResponse,
       })

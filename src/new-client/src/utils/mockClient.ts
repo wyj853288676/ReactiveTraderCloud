@@ -61,7 +61,7 @@ const mockModule = () => {
       defer(() => getMatch("stream", args)),
     ),
     reset: () => {
-      registeredStreams = []
+      registeredStreams.splice(0, registeredStreams.length)
     },
   }
 }
