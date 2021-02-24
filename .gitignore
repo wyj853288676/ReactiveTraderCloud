@@ -25,3 +25,9 @@ deploy/**/docker-compose.yml
 *.sln
 lerna-debug.log
 .DS_Store
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*crash.log
