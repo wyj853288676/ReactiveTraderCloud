@@ -6,6 +6,8 @@ import { Positions, positions$ } from "./Positions"
 import { CurrencyPairPosition } from "services/analytics"
 import { CurrencyPair } from "services/currencyPairs"
 import renderer from "react-test-renderer"
+import { renderHook } from "@testing-library/react-hooks"
+import { data$, useData } from "./data"
 
 jest.mock("services/analytics/analytics")
 jest.mock("services/currencyPairs/currencyPairs")
@@ -76,6 +78,35 @@ const renderComponent = () =>
 const _analytics = require("services/analytics/analytics")
 const _ccpp = require("services/currencyPairs/currencyPairs")
 
+const renderUseData = () => {
+  return renderHook(() => useData(), {
+    wrapper: ({ children }) => (
+      <Subscribe source$={data$}>{children}</Subscribe>
+    ),
+  })
+}
+
+describe.skip("Positions Data", () => {
+  beforeEach(() => {
+    _analytics.__resetMocks()
+    _ccpp.__resetMocks()
+  })
+
+  it("works", () => {
+    _ccpp.__setCurrencyPairsMock(currencyPairMock1.symbol, currencyPairMock1)
+    _ccpp.__setCurrencyPairsMock(currencyPairMock2.symbol, currencyPairMock2)
+
+    const positionMock$ = new BehaviorSubject<
+      Record<string, CurrencyPairPosition>
+    >(positionMock)
+    _analytics.__setPositionMock(positionMock$)
+
+    const { result } = renderUseData()
+
+    expect(result.current.length).toBe(2)
+  })
+})
+
 describe("Positions", () => {
   beforeEach(() => {
     _analytics.__resetMocks()
@@ -113,7 +144,7 @@ describe("Positions", () => {
     expect(screen.getByTestId("tooltip").textContent).toBe("AUD -1,557,031")
   })
 
-  it("should display the correct bubble chart", () => {
+  it.only("should display the correct bubble chart", () => {
     _ccpp.__setCurrencyPairsMock(currencyPairMock1.symbol, currencyPairMock1)
     _ccpp.__setCurrencyPairsMock(currencyPairMock2.symbol, currencyPairMock2)
 
@@ -122,6 +153,7 @@ describe("Positions", () => {
     >(positionMock)
     _analytics.__setPositionMock(positionMock$)
 
+    const subscription = positions$.subscribe()
     const tree = renderer
       .create(
         <TestThemeProvider>
@@ -139,5 +171,6 @@ describe("Positions", () => {
     })
 
     expect(tree).toMatchSnapshot()
+    subscription.unsubscribe()
   })
 })

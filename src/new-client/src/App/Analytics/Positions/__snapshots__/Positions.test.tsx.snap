@@ -25,3 +25,5 @@ exports[`Positions should display the correct bubble chart 2`] = `
   />
 </div>
 `;
+
+exports[`Positions should display the correct bubble chart 3`] = `"No data"`;
