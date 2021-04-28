@@ -1,0 +1,56 @@
+{
+    "startup_app": {
+        "name": "Reactive Trader Cloud (LOCAL)",
+        "url": "http://excel-demo.reactivetrader.com/launcher",
+        "uuid": "ReactiveLauncher",
+        "defaultWidth": 650,
+        "defaultHeight": 52,
+        "defaultTop": 160,
+        "defaultLeft": 30,
+        "autoShow": true,
+        "saveWindowState": false,
+        "resizable": false,
+        "shadow": true,
+        "frame": false,
+        "_comment": "Openfin Excel API preloaded below + added in appAssets (not included in standard OpenFin package)",
+        "preload": [
+            {
+                "url": "http://excel-demo.reactivetrader.com/plugin/service-loader.js"
+            },
+            {
+                "url": "http://excel-demo.reactivetrader.com/plugin/fin.desktop.Excel.js"
+            }
+        ],
+        "backgroundColor": "#444C5F",
+        "alwaysOnTop": true,
+        "icon": "http://excel-demo.reactivetrader.com/static/media/icon.ico",
+        "applicationIcon": "http://excel-demo.reactivetrader.com/static/media/adaptive-mark-large.png",
+        "contextMenu": true,
+        "accelerator": {
+            "devtools": true,
+            "reload": true,
+            "reloadIgnoringCache": true,
+            "zoom": true
+        }
+    },
+    "runtime": {
+        "arguments": "--remote-debugging-port=9222",
+        "version": "9.61.34.22",
+        "futureVersion": "9.61.34.22",
+        "forceLatest": true
+    },
+    "shortcut": {
+        "company": "Adaptive Consulting",
+        "description": "Desktop Reactive Trader Cloud",
+        "icon": "http://excel-demo.reactivetrader.com/static/media/icon.ico",
+        "name": "Reactive Trader Cloud"
+    },
+    "appAssets": [
+        {
+            "src": "http://excel-demo.reactivetrader.com/plugin/add-in.zip",
+            "alias": "excel-api-addin",
+            "version": "2.0.0",
+            "forceDownload": true
+        }
+    ]
+}
